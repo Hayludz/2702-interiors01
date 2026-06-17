@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2702 Interiors — Spaces That Tell Your Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:      #F5F0E8;
+      --cream-dark: #EDE6D6;
+      --ink:        #1A1612;
+      --ink-soft:   #3D3530;
+      --ink-muted:  #7A6E65;
+      --gold:       #C9A84C;
+      --gold-light: #E2C97E;
+      --gold-pale:  #F2E8C9;
+      --gold-dark:  #9E7A2A;
+      --white:      #FDFAF5;
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-heading: 'Playfair Display', serif;
+      --font-body:    'Jost', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ─────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ── GOLD DIVIDER ─────────────────────── */
+    .gold-line {
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    .gold-line.left { margin: 0; }
+
+    /* ── NAV ─────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 5%;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(245, 240, 232, 0.96);
+      box-shadow: 0 1px 0 rgba(201,168,76,0.25);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span {
+      display: block;
+      font-size: 0.5rem;
+      letter-spacing: 0.35em;
+      font-weight: 300;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-top: -2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold-dark); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold-dark);
+      padding: 0.55rem 1.4rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--cream);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu .mobile-cta {
+      margin-top: 1rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      color: var(--gold-dark);
+      padding: 0.8rem 2rem;
+    }
+
+    /* ── HERO ─────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 5% 8vh;
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 80% 40%, rgba(201,168,76,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+        linear-gradient(165deg, #0E0C0A 0%, #1A1612 40%, #231E18 100%);
+    }
+    /* Animated gold particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      animation: float-particle linear infinite;
+      opacity: 0;
+    }
+    @keyframes float-particle {
+      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+    }
+    /* Gold line decorations */
+    .hero-ornament {
+      position: absolute;
+      top: 50%;
+      right: 8%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 45vh;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+    .hero-ornament::before, .hero-ornament::after {
+      content: '';
+      position: absolute;
+      left: -4px;
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+    }
+    .hero-ornament::before { top: 0; }
+    .hero-ornament::after  { bottom: 0; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fade-up 0.9s ease forwards 0.3s;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 1rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fade-up 0.9s ease forwards 0.55s;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: rgba(245,240,232,0.5);
+      letter-spacing: 0.06em;
+      max-width: 420px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fade-up 0.9s ease forwards 0.75s;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fade-up 0.9s ease forwards 0.95s;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 1rem 2.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-family: var(--font-body);
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid rgba(245,240,232,0.3);
+      padding: 1rem 2.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      text-decoration: none;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 8%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fade-up 0.9s ease forwards 1.2s;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+      writing-mode: vertical-rl;
+    }
+    .scroll-dot {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-dot::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--gold-light), transparent);
+      animation: scroll-anim 2s ease infinite;
+    }
+    @keyframes scroll-anim {
+      0%   { top: -100%; }
+      100% { top: 200%; }
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── INTRO ─────────────────────── */
+    #intro {
+      padding: 7rem 5%;
+      background: var(--cream);
+      position: relative;
+    }
+    .intro-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .intro-left .section-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .intro-left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+    .intro-left h2 em {
+      font-style: italic;
+      color: var(--gold-dark);
+    }
+    .intro-left p {
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .intro-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(201,168,76,0.2);
+    }
+    .stat-item .num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold-dark);
+      line-height: 1;
+    }
+    .stat-item .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-top: 0.4rem;
+    }
+    .intro-right {
+      position: relative;
+    }
+    .intro-visual {
+      aspect-ratio: 3/4;
+      background: linear-gradient(145deg, var(--ink) 0%, #2C2218 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-visual::before {
+      content: '2702';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 12rem;
+      font-weight: 600;
+      color: rgba(201,168,76,0.08);
+      bottom: -1rem;
+      right: -1rem;
+      line-height: 1;
+    }
+    .intro-visual-inner {
+      position: absolute;
+      inset: 2rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .intro-visual-text {
+      text-align: center;
+      color: var(--gold-light);
+    }
+    .intro-visual-text .big {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      display: block;
+      letter-spacing: 0.1em;
+    }
+    .intro-visual-text .small {
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-top: 0.5rem;
+    }
+    .intro-visual-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 1.2rem 1.5rem;
+      font-family: var(--font-display);
+      text-align: center;
+    }
+    .intro-visual-badge .n { font-size: 2.2rem; font-weight: 500; line-height: 1; display: block; }
+    .intro-visual-badge .t { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-top: 0.2rem; }
+
+    /* ── SERVICES ─────────────────────── */
+    #services {
+      padding: 7rem 5%;
+      background: var(--ink);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 5rem;
+    }
+    .section-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .section-sub {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.45);
+      margin-top: 1rem;
+      line-height: 1.8;
+    }
+    .services-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201,168,76,0.15);
+    }
+    .service-card {
+      background: var(--ink);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.5s ease;
+    }
+    .service-card:hover::before { width: 100%; }
+    .service-card:hover { background: #1F1A14; }
+    .service-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      transition: color 0.4s;
+    }
+    .service-card:hover .service-num { color: rgba(201,168,76,0.25); }
+    .service-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    .service-desc {
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.5);
+      line-height: 1.85;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.25rem 0.7rem;
+    }
+
+    /* ── PORTFOLIO ─────────────────────── */
+    #portfolio {
+      padding: 7rem 5%;
+      background: var(--cream-dark);
+    }
+    .portfolio-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      cursor: pointer;
+    }
+    .portfolio-item.featured {
+      grid-column: span 2;
+    }
+
+    /* Thumbnail layer */
+    .portfolio-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    .portfolio-item.featured .portfolio-thumb {
+      padding-top: 50%;
+    }
+    .portfolio-thumb img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s ease;
+      filter: brightness(0.75);
+    }
+    .portfolio-item:hover .portfolio-thumb img {
+      transform: scale(1.04);
+      filter: brightness(0.55);
+    }
+
+    /* Play button */
+    .play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s;
+      box-shadow: 0 0 0 0 rgba(201,168,76,0.4);
+      pointer-events: none;
+    }
+    .portfolio-item:hover .play-btn {
+      transform: translate(-50%, -50%) scale(1.12);
+      background: var(--gold-light);
+      box-shadow: 0 0 0 12px rgba(201,168,76,0.15);
+    }
+    .play-btn svg {
+      margin-left: 4px;
+    }
+
+    /* Video embed layer — hidden until clicked */
+    .portfolio-video-wrap {
+      position: absolute;
+      inset: 0;
+      display: none;
+      z-index: 10;
+    }
+    .portfolio-video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .portfolio-item.playing .portfolio-thumb { visibility: hidden; }
+    .portfolio-item.playing .portfolio-video-wrap { display: block; }
+    .portfolio-item.playing .portfolio-overlay { display: none; }
+
+    /* Close video button */
+    .close-video {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      z-index: 20;
+      width: 32px;
+      height: 32px;
+      background: rgba(15,12,8,0.75);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: var(--gold-light);
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .portfolio-item.playing .close-video { display: flex; }
+    .close-video:hover { background: rgba(201,168,76,0.3); }
+
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(15,12,8,0.95) 0%, rgba(15,12,8,0.5) 55%, transparent 100%);
+      padding: 2.5rem 2rem 2rem;
+      transform: translateY(3.5rem);
+      transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
+      z-index: 5;
+      pointer-events: none;
+    }
+    .portfolio-item:hover .portfolio-overlay { transform: translateY(0); }
+    .portfolio-cat {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+    .portfolio-desc {
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.7;
+    }
+    .portfolio-play-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1rem;
+      pointer-events: none;
+    }
+    .portfolio-play-label::before {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 4px 0 4px 7px;
+      border-color: transparent transparent transparent var(--gold);
+    }
+
+    /* ── PROCESS ─────────────────────── */
+    #process {
+      padding: 7rem 5%;
+      background: var(--cream);
+    }
+    .process-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .process-steps {
+      margin-top: 4rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .process-step {
+      text-align: center;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+    .step-dot {
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      background: var(--cream);
+      position: relative;
+      z-index: 1;
+    }
+    .step-dot .n {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--gold-dark);
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .step-desc {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+    }
+
+    /* ── PHILOSOPHY ─────────────────────── */
+    #philosophy {
+      padding: 7rem 5%;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    #philosophy::before {
+      content: '"';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 30rem;
+      color: rgba(201,168,76,0.04);
+      top: -5rem;
+      left: -2rem;
+      line-height: 1;
+    }
+    .philosophy-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .philosophy-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.4;
+      font-style: italic;
+      margin: 2rem 0;
+    }
+    .philosophy-quote em { color: var(--gold-light); font-style: normal; }
+    .philosophy-attr {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+    }
+    .values-grid {
+      max-width: 1100px;
+      margin: 5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .value-card {
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(201,168,76,0.15);
+      text-align: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .value-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      background: rgba(201,168,76,0.04);
+    }
+    .value-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+    }
+    .value-desc {
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.45);
+      line-height: 1.8;
+    }
+
+    /* ── TESTIMONIALS ─────────────────────── */
+    #testimonials {
+      padding: 7rem 5%;
+      background: var(--gold-pale);
+    }
+    .testimonials-grid {
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .testimonial-card {
+      background: var(--white);
+      padding: 2.5rem;
+      position: relative;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testimonial-card:hover {
+      border-bottom-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .testimonial-card::before {
+      content: '"';
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--gold-light);
+      line-height: 0.8;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .testimonial-text {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .testimonial-author .name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .testimonial-author .role {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-top: 0.2rem;
+    }
+
+    /* ── CTA SECTION ─────────────────────── */
+    #cta {
+      padding: 9rem 5%;
+      background: var(--ink);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .cta-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .cta-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .cta-sub {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.45);
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 1.2rem 3rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-family: var(--font-body);
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+    .cta-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(201,168,76,0.3);
+    }
+    .cta-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: rgba(245,240,232,0.3);
+    }
+    .cta-wa svg { opacity: 0.4; }
+
+    /* ── FOOTER ─────────────────────── */
+    footer {
+      background: #0A0906;
+      padding: 5rem 5% 2.5rem;
+      color: rgba(245,240,232,0.4);
+    }
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .footer-brand .logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--cream);
+      display: block;
+    }
+    .footer-brand .tagline {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.3rem;
+      display: block;
+    }
+    .footer-brand p {
+      font-size: 0.82rem;
+      line-height: 1.85;
+      margin-top: 1.5rem;
+    }
+    .footer-col h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.75rem; }
+    .footer-col ul li a {
+      font-size: 0.83rem;
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+    }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── SCROLL REVEAL ─────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── MOBILE ─────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 5%; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-title { font-size: clamp(2.8rem, 10vw, 4.5rem); }
+      .hero-ornament { display: none; }
+      .hero-scroll { display: none; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { text-align: center; justify-content: center; }
+
+      .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .intro-right { display: none; }
+      .intro-stats { grid-template-columns: 1fr 1fr; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-item.featured { grid-column: span 1; }
+      .portfolio-item.featured .portfolio-thumb { padding-top: 56.25%; }
+      .portfolio-overlay { transform: translateY(0); }
+
+      .process-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .process-steps::before { display: none; }
+
+      .values-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+      .footer-grid > div:first-child {
+        grid-column: span 2;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .process-steps { grid-template-columns: 1fr; }
+      .intro-stats { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-grid > div:first-child { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">2702 <span>— Interiors —</span></a>
+    <ul class="nav-links">
+      <li><a href="#intro">Studio</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#process">Process</a></li>
+    </ul>
+    <a href="https://wa.me/2349038289966?text=Hello%202702%20Interiors%2C%20I%20am%20interested%20in%20your%20service" target="_blank" class="nav-cta">Start a Project</a>
+    <div class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#intro" class="mobile-link">Studio</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#portfolio" class="mobile-link">Portfolio</a>
+    <a href="#process" class="mobile-link">Process</a>
+    <a href="#testimonials" class="mobile-link">Stories</a>
+    <a href="https://wa.me/2349038289966?text=Hello%202702%20Interiors%2C%20I%20am%20interested%20in%20your%20service" target="_blank" class="mobile-cta">Start a Project</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-ornament"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">2702 Interiors · Lagos, Nigeria</p>
+      <h1 class="hero-title">Spaces That<br /><em>Tell Your</em><br />Story</h1>
+      <p class="hero-subtitle">We don't just design rooms. We craft experiences — from intimate restaurants to luxury nightclubs, shortlets to grand entrances.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/2349038289966?text=Hello%202702%20Interiors%2C%20I%20am%20interested%20in%20your%20service" target="_blank" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Start Your Project
+        </a>
+        <a href="#portfolio" class="btn-ghost">View Our Work</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-dot"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="intro-grid">
+      <div class="intro-left reveal">
+        <p class="section-eyebrow">Our Studio</p>
+        <h2>Design With<br /><em>Intention</em>,<br />Built With Heart</h2>
+        <p>2702 Interiors is a Lagos-based interior design studio that brings spaces to life through precision, emotion, and a deep respect for each client's vision. We listen deeply, then deliver — on time, on brief, every time.</p>
+        <p>From intimate Boho restaurants to immersive VIP lounges, living ecosystems to monumental entrances — every project is a story, and we write it beautifully.</p>
+        <div class="intro-stats">
+          <div class="stat-item">
+            <span class="num">50+</span>
+            <p class="label">Projects Delivered</p>
+          </div>
+          <div class="stat-item">
+            <span class="num">8+</span>
+            <p class="label">Years of Craft</p>
+          </div>
+          <div class="stat-item">
+            <span class="num">100%</span>
+            <p class="label">Client Satisfaction</p>
+          </div>
+          <div class="stat-item">
+            <span class="num">4</span>
+            <p class="label">Design Sectors</p>
+          </div>
+        </div>
+      </div>
+      <div class="intro-right reveal reveal-delay-2">
+        <div class="intro-visual">
+          <div class="intro-visual-inner">
+            <div class="intro-visual-text">
+              <span class="big">2702</span>
+              <span class="small">Interiors · Lagos</span>
+            </div>
+          </div>
+          <div class="intro-visual-badge">
+            <span class="n">✦</span>
+            <span class="t">Award-Winning Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">What We Do</p>
+      <h2 class="section-title">Design Across<br /><em>Every Space</em></h2>
+      <p class="section-sub">From residential shortlets to commercial nightclubs, we approach every project as a canvas — and every client's vision as our brief.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon">🏠</div>
+        <h3 class="service-name">Residential & Shortlet Design</h3>
+        <p class="service-desc">We design shortlet apartments that attract higher-paying guests and stronger occupancy rates — blending natural light, living ecosystems, and layered lighting into unforgettable stays.</p>
+        <div class="service-tags">
+          <span class="tag">Shortlet</span>
+          <span class="tag">Apartments</span>
+          <span class="tag">Biophilic</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <div class="service-icon">🍽️</div>
+        <h3 class="service-name">Restaurant & Hospitality Spaces</h3>
+        <p class="service-desc">From Tropical Boho intimacy to modern dining experiences — we design restaurants that feel like a warm embrace, with every woven texture, light, and material placed with intention.</p>
+        <div class="service-tags">
+          <span class="tag">Restaurants</span>
+          <span class="tag">Cafes</span>
+          <span class="tag">Hospitality</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <div class="service-icon">🎭</div>
+        <h3 class="service-name">Nightlife & Entertainment Venues</h3>
+        <p class="service-desc">VIP lounges, DJ booths, dancer stages, luxury restrooms — we build immersive nightlife environments that combine drama, reflective finishes, and precision lighting choreography.</p>
+        <div class="service-tags">
+          <span class="tag">Nightclubs</span>
+          <span class="tag">VIP Lounges</span>
+          <span class="tag">Bars</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <div class="service-icon">🚪</div>
+        <h3 class="service-name">Commercial Entrances & Concierge</h3>
+        <p class="service-desc">First impressions are permanent. We design monumental entrances with brand installations, crystal chandeliers, full-height mirrors, and architectural lighting that build anticipation.</p>
+        <div class="service-tags">
+          <span class="tag">Lobbies</span>
+          <span class="tag">Entrances</span>
+          <span class="tag">Concierge</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">05</div>
+        <div class="service-icon">🪞</div>
+        <h3 class="service-name">Luxury Commercial Restrooms</h3>
+        <p class="service-desc">Restrooms are part of the experience. We design high-end commercial restrooms — both feminine-elegant and moody-masculine — with chandelier lighting, marble vanities, and frameless glass.</p>
+        <div class="service-tags">
+          <span class="tag">Commercial</span>
+          <span class="tag">Luxury</span>
+          <span class="tag">Bespoke</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">06</div>
+        <div class="service-icon">✦</div>
+        <h3 class="service-name">Full Project Management</h3>
+        <p class="service-desc">We carry the stress so you don't have to. From concept to completion, we manage every detail — procurement, installation, finishing — delivering in time, on budget, on vision.</p>
+        <div class="service-tags">
+          <span class="tag">Turnkey</span>
+          <span class="tag">Procurement</span>
+          <span class="tag">Installation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Our Work</p>
+      <h2 class="section-title" style="color:var(--ink);">Selected<br /><em>Projects</em></h2>
+      <p class="section-sub" style="color:var(--ink-muted);">Every space we design carries a story. Click any project to watch it come to life.</p>
+    </div>
+    <div class="portfolio-grid">
+
+      <!-- 1: Restaurant – featured -->
+      <div class="portfolio-item featured reveal" data-video="vJzG6kC2IOk">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/vJzG6kC2IOk/maxresdefault.jpg" alt="Tropical Boho Restaurant" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Restaurant · Hospitality</p>
+          <h3 class="portfolio-title">Intimate Tropical Boho Restaurant</h3>
+          <p class="portfolio-desc">An intimate, soulful restaurant that feels like a warm embrace — woven chairs, intentional lighting, natural textures. Delivered in under a month.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 2: Shortlet Ecosystem -->
+      <div class="portfolio-item reveal" data-video="F8SYo98eXRY">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/F8SYo98eXRY/maxresdefault.jpg" alt="Shortlet Ecosystem Apartment" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Shortlet · Residential</p>
+          <h3 class="portfolio-title">The Living Ecosystem Apartment</h3>
+          <p class="portfolio-desc">Live plants, an aquarium with live fish, natural light, and layered lighting. Not just a shortlet — a living ecosystem.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 3: Luxury Restroom -->
+      <div class="portfolio-item reveal reveal-delay-1" data-video="n1r3O0GmPmw">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/n1r3O0GmPmw/maxresdefault.jpg" alt="Modern Luxury Club Restroom" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Nightlife · Commercial</p>
+          <h3 class="portfolio-title">Modern Luxury Club Restroom</h3>
+          <p class="portfolio-desc">Dark marble, matte green cabinetry, metallic vessel basins, LED vanity mirrors. The restroom as an extension of the nightlife experience.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 4: VIP Lounge -->
+      <div class="portfolio-item reveal" data-video="Qa4sVsYVaTM">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/Qa4sVsYVaTM/maxresdefault.jpg" alt="VIP Lounge Design" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Nightlife · VIP</p>
+          <h3 class="portfolio-title">Immersive VIP Lounge</h3>
+          <p class="portfolio-desc">Custom curved walls, DJ booth, dancer stage, moving head lighting, LED screens. A bold, immersive nightlife environment built for premium experiences.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 5: Shortlet 2 -->
+      <div class="portfolio-item reveal reveal-delay-1" data-video="4xGrh4Ki5NA">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/4xGrh4Ki5NA/maxresdefault.jpg" alt="Natural Light Shortlet" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Shortlet · Residential</p>
+          <h3 class="portfolio-title">Natural Light Shortlet Haven</h3>
+          <p class="portfolio-desc">Custom TV feature wall, dedicated workspace, live plants, and aquarium. A shortlet designed for modern travelers who work as much as they explore.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 6: Feminine Restroom -->
+      <div class="portfolio-item reveal" data-video="91zBmVV4ppc">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/91zBmVV4ppc/maxresdefault.jpg" alt="High-End Feminine Restroom" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Commercial · Luxury</p>
+          <h3 class="portfolio-title">High-End Feminine Restroom</h3>
+          <p class="portfolio-desc">Statement chandelier, purple vanity base, marble slab with vessel sinks, wavy upholstered mirrors. Elegance, comfort, and visual drama.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 7: Concierge Entrance – featured -->
+      <div class="portfolio-item featured reveal" data-video="yHSffSj67T4">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/yHSffSj67T4/maxresdefault.jpg" alt="Monumental Concierge Entrance" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Commercial · Entrance</p>
+          <h3 class="portfolio-title">Monumental Concierge & Entrance</h3>
+          <p class="portfolio-desc">Brand installations, full-height mirrored walls, chevron wood cladding, crystal chandeliers. Not just an entrance — an anticipation.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+      <!-- 8: Restroom Vol 2 -->
+      <div class="portfolio-item featured reveal" data-video="zzhlFI0Vp5M">
+        <div class="portfolio-thumb">
+          <img src="https://img.youtube.com/vi/zzhlFI0Vp5M/maxresdefault.jpg" alt="Layered Luxury Restroom Vol 2" loading="lazy" />
+          <div class="play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink)"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-video-wrap"></div>
+        <div class="close-video" title="Close video">✕</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Commercial · Restroom</p>
+          <h3 class="portfolio-title">Layered Luxury Restroom Vol. II</h3>
+          <p class="portfolio-desc">POP ceiling with recessed lighting, pseudo window with layered curtains, pendant cascades, and frameless glass partitions. Drama in every detail.</p>
+          <span class="portfolio-play-label">Play Video</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="process-wrap">
+      <div class="section-header reveal" style="text-align:center">
+        <p class="section-eyebrow" style="color:var(--gold-dark)">How We Work</p>
+        <h2 class="section-title" style="color:var(--ink)">Your Project,<br /><em>Our Promise</em></h2>
+        <p class="section-sub" style="color:var(--ink-muted)">We carry the stress so you don't have to. Here's how we take your vision from idea to reality.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-dot"><span class="n">01</span></div>
+          <h3 class="step-title">Listen</h3>
+          <p class="step-desc">We start by listening deeply — your vision, your space, your story. No assumptions, only understanding.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-1">
+          <div class="step-dot"><span class="n">02</span></div>
+          <h3 class="step-title">Design</h3>
+          <p class="step-desc">We craft a precise concept — layouts, materials, lighting, and colour — built around your brief and personality.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="step-dot"><span class="n">03</span></div>
+          <h3 class="step-title">Execute</h3>
+          <p class="step-desc">We procure, coordinate, and install with meticulous attention. Every detail placed with intention and precision.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="step-dot"><span class="n">04</span></div>
+          <h3 class="step-title">Deliver</h3>
+          <p class="step-desc">We hand over a space that exceeded your expectations — on time, on budget, with zero stress transferred to you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="philosophy-inner reveal">
+      <span class="gold-line"></span>
+      <blockquote class="philosophy-quote">
+        "We don't just design spaces —<br />we design <em>experiences</em> that move people."
+      </blockquote>
+      <p class="philosophy-attr">— 2702 Interiors Design Philosophy</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">✦</div>
+        <h3 class="value-title">Intention</h3>
+        <p class="value-desc">Every material, fixture, and light source is chosen with purpose. Nothing decorative for decoration's sake — only elements that serve the story.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-icon">◈</div>
+        <h3 class="value-title">Precision</h3>
+        <p class="value-desc">We listen deeply, capture exactly what you envision, and deliver without compromise. Precision is our love language to every project.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-icon">❧</div>
+        <h3 class="value-title">Transformation</h3>
+        <p class="value-desc">A space is more than its dimensions. We transform rooms into emotional environments — places that make people feel something the moment they enter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-header reveal">
+      <p class="section-eyebrow" style="color:var(--gold-dark)">Client Stories</p>
+      <h2 class="section-title" style="color:var(--ink)">What Our<br /><em>Clients Say</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">They listened to everything I wanted and delivered beyond what I imagined. The restaurant feels like a dream. Guests walk in and immediately feel it. In under a month. I still can't believe it.</p>
+        <div class="testimonial-author">
+          <p class="name">David A.</p>
+          <p class="role">Restaurant Owner, Lagos</p>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">My shortlet bookings doubled after the redesign. The living plants, the aquarium, the natural light — guests keep saying it feels like a sanctuary. 2702 understood exactly what I needed for shortlet success.</p>
+        <div class="testimonial-author">
+          <p class="name">Mrs. Folake O.</p>
+          <p class="role">Shortlet Property Owner</p>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">The VIP lounge they built for us is extraordinary. Every detail — the LED systems, the custom DJ booth, the curved walls — elevates the entire club experience. Our VIP clientele noticed immediately.</p>
+        <div class="testimonial-author">
+          <p class="name">Tunde B.</p>
+          <p class="role">Nightclub Owner, Lagos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="cta-inner reveal">
+      <p class="cta-label">Let's Begin</p>
+      <h2 class="cta-title">Your Space<br /><em>Deserves</em><br />This.</h2>
+      <p class="cta-sub">Whether it's a shortlet apartment, a restaurant, a nightclub, or an entrance — we're ready to listen, design, and deliver something extraordinary for you.</p>
+      <a href="https://wa.me/2349038289966?text=Hello%202702%20Interiors%2C%20I%20am%20interested%20in%20your%20service" target="_blank" class="cta-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Chat With Us on WhatsApp
+      </a>
+      <p class="cta-wa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Confidential · No-pressure consultation
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">2702</span>
+        <span class="tagline">— Interiors —</span>
+        <p>Premium interior design and decoration studio based in Lagos, Nigeria. Transforming spaces into extraordinary experiences since day one.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Residential & Shortlet</a></li>
+          <li><a href="#services">Restaurants & Hospitality</a></li>
+          <li><a href="#services">Nightlife & Entertainment</a></li>
+          <li><a href="#services">Commercial Entrances</a></li>
+          <li><a href="#services">Luxury Restrooms</a></li>
+          <li><a href="#services">Full Project Management</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#intro">About the Studio</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#testimonials">Client Stories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://wa.me/2349038289966?text=Hello%202702%20Interiors%2C%20I%20am%20interested%20in%20your%20service" target="_blank">WhatsApp Us</a></li>
+          <li><a href="#cta">Start a Project</a></li>
+          <li><a href="https://www.instagram.com/2702interiors" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 2702 Interiors. All rights reserved.</p>
+      <p>Crafted with intention · Lagos, Nigeria</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── PARTICLES ──
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 35; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        width: ${Math.random() > 0.7 ? 2 : 1}px;
+        height: ${Math.random() > 0.7 ? 2 : 1}px;
+        animation-duration: ${6 + Math.random() * 12}s;
+        animation-delay: ${Math.random() * 10}s;
+      `;
+      container.appendChild(p);
+    }
+
+    // ── NAV SCROLL ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── HAMBURGER ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── SMOOTH ANCHOR ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
